@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: twitter-like-app
+  labels:
+    app: twitter-like-app
+spec:
+  replicas: 1
+  template:
+    metadata:
+      name: twitter-like-app
+      labels:
+        app: twitter-like-app
+    spec:
+      containers:
+        - name: twitter-like-app
+          image: habtamudires/twitter-like-app:latest
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 8080
+          env:
+            - name: SPRING_PROFILES_ACTIVE
+              value: kube
+      restartPolicy: Always
+  selector:
+    matchLabels:
+      app: twitter-like-app

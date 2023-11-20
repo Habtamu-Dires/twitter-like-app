@@ -1,0 +1,25 @@
+server:
+  port: 8080
+spring:
+  application:
+    name: twitter-like
+  r2dbc:
+    url: r2dbc:postgresql://postgres:5432/twitter_db
+    username: postgres
+    password: password
+  flyway:
+    url: jdbc:postgresql://postgres:5432/twitter_db
+    user: postgres
+    password: password
+    baselineOnMigrate: true
+
+application:
+  config:
+    user-management-url: http://user-management/api/v1/user
+
+
+
+
+
+
+

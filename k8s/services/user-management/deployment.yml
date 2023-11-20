@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: user-management
+  labels:
+    app: user-management
+spec:
+  replicas: 1
+  template:
+    metadata:
+      name: user-management
+      labels:
+        app: user-management
+    spec:
+      containers:
+        - name: twitter-like-app
+          image: habtamudires/user-management:latest
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 8081
+          env:
+            - name: SPRING_PROFILES_ACTIVE
+              value: kube
+      restartPolicy: Always
+  selector:
+    matchLabels:
+      app: user-management

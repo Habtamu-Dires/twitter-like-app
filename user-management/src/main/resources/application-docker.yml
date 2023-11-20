@@ -1,0 +1,21 @@
+  server:
+    port: 8081
+  spring:
+    application:
+      name: user-management
+    datasource:
+      url: jdbc:postgresql://postgres:5432/twitter_db
+      username: postgres
+      password: password
+      driver-class-name: org.postgresql.Driver
+    jpa:
+      hibernate:
+        ddl-auto: create-drop
+      show-sql: false
+      properties:
+        hibernate:
+          format_sql: true
+      database: postgresql
+      database-platform: org.hibernate.dialect.PostgreSQLDialect
+
+

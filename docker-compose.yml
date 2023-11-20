@@ -1,0 +1,50 @@
+services:
+  postgres:
+    container_name: twitter-psql
+    image: postgres:alpine
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+      PGDATA: /data/postgres
+    volumes:
+      - postgres:/data/postgres
+    ports:
+      - "5432:5432"
+    networks:
+      - postgres
+
+  user-management:
+    container_name: user-management
+    image: habtamudires/user-management
+    ports:
+      - "8081:8081"
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
+    networks:
+      - postgres
+      - spring
+    depends_on:
+      - postgres
+
+  twitter-like-app:
+    container_name: twitter-like-app
+    image: habtamudires/twitter-like-app
+    ports:
+      - "8080:8080"
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
+    networks:
+      - postgres
+      - spring
+    depends_on:
+      - postgres
+      - user-management
+
+networks:
+  postgres:
+    driver: bridge
+  spring:
+    driver: bridge
+
+volumes:
+  postgres:
